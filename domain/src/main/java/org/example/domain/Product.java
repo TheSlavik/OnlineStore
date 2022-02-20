@@ -4,12 +4,21 @@ public class Product {
 
     private String name;
     private int rate;
-    private int price;
+    private double price;
 
-    public Product(String name, int rate, int price) {
+    public Product(String name, int rate, double price) {
         this.name = name;
         this.rate = rate;
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", rate=" + rate +
+                ", price=" + price +
+                '}';
     }
 
     public String getName() {
@@ -28,11 +37,11 @@ public class Product {
         this.rate = rate;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

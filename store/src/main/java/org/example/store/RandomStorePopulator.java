@@ -4,7 +4,11 @@ import com.github.javafaker.Faker;
 
 public class RandomStorePopulator {
 
-    Faker faker = new Faker();
+    private final Faker faker;
+
+    public RandomStorePopulator() {
+        this.faker = new Faker();
+    }
 
     public String getName(String name) {
         return switch (name) {
@@ -13,7 +17,7 @@ public class RandomStorePopulator {
             case "Milk":
                 yield faker.beer().name();
             case "Phone":
-                yield faker.lorem().characters();
+                yield faker.commerce().productName();
             default:
                 yield faker.letterify("?" + faker.lorem().word(), true);
         };
