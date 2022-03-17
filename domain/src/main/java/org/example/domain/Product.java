@@ -12,6 +12,12 @@ public class Product {
         this.price = price;
     }
 
+    public Product(Product product) {
+        this.name = product.name;
+        this.rate = product.rate;
+        this.price = product.price;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
