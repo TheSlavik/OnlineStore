@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 public class StoreApp {
 
-    private final Store store = new Store();
+    private final Store store = Store.getStore();
 
     public static void main(String[] args) {
         StoreApp app = new StoreApp();

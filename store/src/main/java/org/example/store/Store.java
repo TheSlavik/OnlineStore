@@ -11,9 +11,10 @@ import java.util.stream.Collectors;
 
 public class Store {
 
+    public static Store store;
     private final List<Category> categories = new ArrayList<>();
 
-    public Store() {
+    private Store() {
         try {
             for (Class<? extends Category> categoryClass
                     : new Reflections("org.example.domain").getSubTypesOf(Category.class)) {
@@ -22,6 +23,13 @@ public class Store {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Store getStore() {
+        if (store == null) {
+            store = new Store();
+        }
+        return store;
     }
 
     public void generateProducts() {
