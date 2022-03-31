@@ -5,13 +5,16 @@ import org.example.domain.Product;
 import org.example.store.xml.XMLParser;
 import org.reflections.Reflections;
 
+import java.lang.reflect.Constructor;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Store {
 
+    public static Store store;
     private final List<Category> categories = new ArrayList<>();
 
-    public Store() {
+    private Store() {
         try {
             for (Class<? extends Category> categoryClass
                     : new Reflections("org.example.domain").getSubTypesOf(Category.class)) {
@@ -22,13 +25,35 @@ public class Store {
         }
     }
 
+    public static Store getStore() {
+        if (store == null) {
+            store = new Store();
+        }
+        return store;
+    }
+
+    public void generateProducts() {
+        try {
+            RandomStorePopulator populator = new RandomStorePopulator();
+            Constructor<Product> constructor = Product.class.getConstructor(String.class, Integer.TYPE, Double.TYPE);
+            for (Category category : getCategories()) {
+                for (int i = 0; i < 5; i++) {
+                    category.getProducts().add(constructor.newInstance(
+                            populator.getName(category.getName()),
+                            populator.getRate(),
+                            populator.getPrice()));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sort() {
         List<Product> list = getAllProducts();
         list.sort(new ProductComparator(XMLParser.getConfig()));
         System.out.println("\nSorted list");
-        for (Product product : list) {
-            System.out.println(product);
-        }
+        list.forEach(System.out::println);
         System.out.println();
     }
 
@@ -36,20 +61,15 @@ public class Store {
         List<Product> list = getAllProducts();
         list.sort(new ProductComparator(Map.of("price", "desc")));
         System.out.println("\nTop 5");
-        for (int i = 0; i < 5; i++) {
-            System.out.println(list.get(i));
-        }
+        list.stream().limit(5).forEach(System.out::println);
         System.out.println();
     }
 
     private List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>();
-        for (Category category : categories) {
-            for (Product product : category.getProducts()) {
-                products.add(new Product(product));
-            }
-        }
-        return products;
+        return categories.stream()
+                .map(Category::getProducts)
+                .flatMap(List::stream)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public List<Category> getCategories() {
