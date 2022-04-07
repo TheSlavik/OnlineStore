@@ -1,7 +1,7 @@
 package org.example.domain;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Category {
 
@@ -10,7 +10,7 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
-        this.products = new ArrayList<>();
+        this.products = new CopyOnWriteArrayList<>();
     }
 
     public String getName() {
