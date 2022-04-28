@@ -1,4 +1,4 @@
-package org.example.store.orders;
+package org.example.store.order;
 
 import org.example.store.Store;
 
@@ -22,7 +22,7 @@ public class OrdersCleaner extends Thread {
         while (isAlive()) {
             try {
                 TimeUnit.MINUTES.sleep(1);
-                Store.getStore().purchased.clear();
+                Store.getStore().getPurchased().clear();
                 System.out.println(currentThread().getName() + ": orders cleared.");
             } catch (InterruptedException e) {
                 e.printStackTrace();
