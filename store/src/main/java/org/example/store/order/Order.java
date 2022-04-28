@@ -1,4 +1,4 @@
-package org.example.store.orders;
+package org.example.store.order;
 
 import org.example.domain.Product;
 import org.example.store.Store;
@@ -19,9 +19,8 @@ public class Order extends Thread {
     @Override
     public void run() {
         try {
-            Store.getStore().getCategories().forEach(x -> products.forEach(y -> x.getProducts().remove(y)));
             time.sleep(new Random().nextLong(30) + 1);
-            Store.getStore().purchased.addAll(products);
+            Store.getStore().getPurchased().addAll(products);
             System.out.println(currentThread().getName() + ": order processed.");
         } catch (InterruptedException e) {
             e.printStackTrace();
