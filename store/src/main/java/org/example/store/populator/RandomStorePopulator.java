@@ -1,8 +1,8 @@
 package org.example.store.populator;
 
-import org.example.domain.categories.Category;
 import org.example.domain.Product;
-import org.example.store.ProductComparator;
+import org.example.domain.categories.Category;
+import org.example.store.util.ProductComparator;
 import org.example.store.xml.XMLParser;
 
 import java.util.ArrayList;

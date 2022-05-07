@@ -1,4 +1,4 @@
-package org.example.store;
+package org.example.store.util;
 
 import org.example.domain.Product;
 

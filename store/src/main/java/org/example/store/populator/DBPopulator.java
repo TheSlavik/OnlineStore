@@ -1,7 +1,7 @@
 package org.example.store.populator;
 
-import org.example.domain.categories.Category;
 import org.example.domain.Product;
+import org.example.domain.categories.Category;
 import org.example.store.xml.XMLParser;
 
 import java.sql.Connection;
