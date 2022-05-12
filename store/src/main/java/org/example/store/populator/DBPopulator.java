@@ -33,7 +33,8 @@ public class DBPopulator implements Populator {
     public void sort() {
         StringBuilder statement = new StringBuilder("select p.id, p.name, p.rate, p.price, c.name from products as p" +
                 " left join categories as c on p.category_id = c.id order by ");
-        for (Map.Entry<String, String> entry : XMLParser.getConfig().entrySet()) {
+        for (Map.Entry<String, String> entry :
+                XMLParser.getConfig("store/src/main/resources/sorting.xml").entrySet()) {
             statement.append("p.").append(entry.getKey()).append(" ").append(entry.getValue()).append(", ");
         }
         statement.delete(statement.length() - 2, statement.length());

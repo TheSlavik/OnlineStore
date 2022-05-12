@@ -28,7 +28,7 @@ public class RandomStorePopulator implements Populator {
     @Override
     public void sort() {
         List<Product> list = getAllProducts();
-        list.sort(new ProductComparator(XMLParser.getConfig()));
+        list.sort(new ProductComparator(XMLParser.getConfig("store/src/main/resources/sorting.xml")));
         list.forEach(System.out::println);
     }
 
