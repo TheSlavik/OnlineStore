@@ -9,11 +9,10 @@ import java.util.Map;
 
 public class XMLParser {
 
-    public static Map<String, String> getConfig() {
+    public static Map<String, String> getConfig(String path) {
         Map<String, String> config = new LinkedHashMap<>();
         try {
-            Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                    .parse("store/src/main/resources/sorting.xml");
+            Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(path);
             NodeList list = document.getDocumentElement().getChildNodes();
             for (int i = 1; i < list.getLength(); i += 2) {
                 config.put(list.item(i).getNodeName(), list.item(i).getTextContent());

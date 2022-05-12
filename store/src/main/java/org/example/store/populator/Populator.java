@@ -1,8 +1,8 @@
 package org.example.store.populator;
 
 import com.github.javafaker.Faker;
-import org.example.domain.categories.Category;
 import org.example.domain.Product;
+import org.example.domain.categories.Category;
 import org.example.store.Store;
 import org.example.store.order.Order;
 import org.example.store.order.OrdersCleaner;

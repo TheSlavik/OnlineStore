@@ -1,8 +1,8 @@
 package org.example.store.populator;
 
-import org.example.domain.categories.Category;
 import org.example.domain.Product;
-import org.example.store.ProductComparator;
+import org.example.domain.categories.Category;
+import org.example.store.util.ProductComparator;
 import org.example.store.xml.XMLParser;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class RandomStorePopulator implements Populator {
     @Override
     public void sort() {
         List<Product> list = getAllProducts();
-        list.sort(new ProductComparator(XMLParser.getConfig()));
+        list.sort(new ProductComparator(XMLParser.getConfig("store/src/main/resources/sorting.xml")));
         list.forEach(System.out::println);
     }
 

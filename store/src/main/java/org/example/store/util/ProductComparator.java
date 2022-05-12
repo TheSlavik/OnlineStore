@@ -1,17 +1,11 @@
-package org.example.store;
+package org.example.store.util;
 
 import org.example.domain.Product;
 
 import java.util.Comparator;
 import java.util.Map;
 
-public class ProductComparator implements Comparator<Product> {
-
-    private final Map<String, String> config;
-
-    public ProductComparator(Map<String, String> config) {
-        this.config = config;
-    }
+public record ProductComparator(Map<String, String> config) implements Comparator<Product> {
 
     @Override
     public int compare(Product o1, Product o2) {

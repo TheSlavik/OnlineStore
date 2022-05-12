@@ -1,7 +1,7 @@
 package org.example.store;
 
-import org.example.domain.categories.Category;
 import org.example.domain.Product;
+import org.example.domain.categories.Category;
 import org.reflections.Reflections;
 
 import java.util.ArrayList;

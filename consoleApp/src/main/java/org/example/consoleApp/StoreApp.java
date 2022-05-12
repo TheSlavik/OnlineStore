@@ -1,5 +1,10 @@
 package org.example.consoleApp;
 
+import org.example.consoleApp.command.CreateOrderCommand;
+import org.example.consoleApp.command.SortCommand;
+import org.example.consoleApp.command.TopCommand;
+import org.example.store.http.Client;
+import org.example.store.http.Server;
 import org.example.store.populator.DBPopulator;
 import org.example.store.populator.Populator;
 import org.example.store.populator.RandomStorePopulator;
@@ -9,10 +14,13 @@ import java.io.InputStreamReader;
 
 public class StoreApp {
 
-    private final Populator populator = new DBPopulator();
+    public static final Server server = new Server();
+    public static final Client client = new Client();
+    private final Populator populator = new RandomStorePopulator();
 
     public static void main(String[] args) {
         StoreApp app = new StoreApp();
+        server.startServer();
         app.populator.generateProducts();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         loop:
@@ -27,27 +35,16 @@ public class StoreApp {
                         "quit" - exit app.""");
                 switch (reader.readLine()) {
                     case "create order":
-                        System.out.println("Enter the number(s) of desired product(s) or zero to cancel the order.");
-                        app.populator.getAllProducts().forEach(System.out::println);
-                        while (true) {
-                            String order = reader.readLine().trim();
-                            if (!"0".equals(order)) {
-                                try {
-                                    app.populator.createOrder(order);
-                                } catch (Exception e) {
-                                    System.out.println("Example: \"4 8 15\".");
-                                    continue;
-                                }
-                            }
-                            continue loop;
-                        }
+                        new CreateOrderCommand().execute(app.populator);
+                        break;
                     case "sort":
-                        app.populator.sort();
+                        new SortCommand().execute(app.populator);
                         break;
                     case "top":
-                        app.populator.top();
+                        new TopCommand().execute(app.populator);
                         break;
                     case "quit":
+                        server.getServer().stop(0);
                         break loop;
                     default:
                         System.out.println("Unsupported operation.");
